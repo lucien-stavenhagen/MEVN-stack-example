@@ -1,13 +1,18 @@
 import axios from "axios";
 
 const state = {
-  proxy: "http://localhost:4001",
-  getposts: "/api/posts",
+  stubs: {
+    getposts: "/api/posts",
+    newpost: "/api/posts/create"
+  },
   //proxy: "https://jsonplaceholder.typicode.com",
   //getposts: "/posts",
   posts: []
 };
 const getters = {
+  getPostsProxyStubs: state => {
+    return state.stubs;
+  },
   getAllPosts: state => {
     return [...state.posts];
   },
@@ -16,9 +21,6 @@ const getters = {
   }
 };
 const mutations = {
-  addPostMut: (state, newpost) => {
-    state.posts = [...state.posts, newpost];
-  },
   initPosts: (state, postsFromDB) => {
     state.posts = [...postsFromDB];
   }
@@ -29,12 +31,9 @@ const mutations = {
 // method
 //
 const actions = {
-  addPost: ({ commit }, newpost) => {
-    commit("addPostMut", newpost);
-  },
-  fetchPosts({ commit }) {
+  fetchPosts({ state, commit, rootState }) {
     axios
-      .get(`${state.proxy}${state.getposts}`)
+      .get(`${rootState.utilsModule.proxy}${state.stubs.getposts}`)
       .then(response => {
         commit("initPosts", response.data);
       })
@@ -51,11 +50,11 @@ const actions = {
   }
 };
 
-const moduleA = {
+const postsModule = {
   state,
   getters,
   mutations,
   actions
 };
 
-export default moduleA;
+export default postsModule;

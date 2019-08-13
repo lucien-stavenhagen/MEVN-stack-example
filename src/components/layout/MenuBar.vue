@@ -1,59 +1,62 @@
 <template>
-  <div class="header">
-    <h1>{{msg}}</h1>
-    <ul>
-      <li>
-        <router-link class="rlink" to="/">Home</router-link>
-      </li>
-      <li>
-        <router-link class="rlink" to="/posts">Posts</router-link>
-      </li>
-      <li>
-        <router-link class="rlink" to="/newpost">New Post</router-link>
-      </li>
-    </ul>
-  </div>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="navbar-brand">Blog App</div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li v-if="isLoggedIn" class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            data-toggle="dropdown"
+          >Welcome {{this.getCredentials.loggedinUser}}</a>
+          <div class="dropdown-menu">
+            <a v-if="isLoggedIn" class="dropdown-item" href="#" v-on:click="myLogout">Logout</a>
+          </div>
+        </li>
+        <li v-else class="nav-item">
+          <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/">Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/posts">Posts</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link v-if="isLoggedIn" class="nav-link" to="/newpost">New Post</router-link>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "MenuBar",
-  props: ["msg"]
+  computed: {
+    ...mapGetters(["isLoggedIn", "getCredentials"])
+  },
+  methods: {
+    myLogout() {
+      this.$router.push(`/logout/${this.getCredentials.loggedinUser}`);
+    }
+  }
 };
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-.header {
-  line-height: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  width: 80%;
-  margin: auto;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 4px;
-  background-color: #bbbbbb;
-}
-ul {
-  list-style-type: none;
-}
-li {
-  display: inline-block;
-  vertical-align: middle;
-  padding: 5px;
-  margin: 0 1px;
-  border: 1px solid black;
-  border-radius: 3px;
-  background-color: aqua;
-}
-.rlink {
-  text-decoration: none;
-}
 </style>

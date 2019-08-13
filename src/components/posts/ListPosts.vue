@@ -1,21 +1,21 @@
 <template>
-  <div>
-    <div class="posts-container">
+  <div class="container">
+    <div>
       <div v-bind:key="post._id" v-for="post in getAllPosts">
-        <SinglePost v-bind:post="post"></SinglePost>
+        <PostView v-bind:post="post"></PostView>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SinglePost from "./SinglePost";
+import PostView from "./PostView.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "ListPosts",
   components: {
-    SinglePost
+    PostView
   },
   computed: {
     ...mapGetters(["getAllPosts", "getPostById"])
@@ -29,19 +29,4 @@ export default {
 };
 </script>
 <style scoped>
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-.posts-container {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  padding: 2px;
-  border: 1px black solid;
-  border-radius: 4px;
-  background-color: cadetblue;
-}
 </style>

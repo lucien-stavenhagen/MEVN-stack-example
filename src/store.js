@@ -1,12 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import moduleA from "./storemodules/modulea";
+import postsModule from "./storemodules/postsmodule";
+import usersModule from "./storemodules/usersmodule";
+import utilsModule from "./storemodules/utilsmodule";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    moduleA
+    postsModule,
+    usersModule,
+    utilsModule
   }
 });
 
