@@ -17,7 +17,7 @@ const getters = {
     return [...state.posts];
   },
   getPostById: state => id => {
-    return [state.posts.find(postid => postid.id === id)];
+    return state.posts.find(postid => postid._id === id);
   }
 };
 const mutations = {
@@ -40,9 +40,11 @@ const actions = {
       .catch(err => {
         commit("initPosts", [
           {
-            id: 1,
-            title: "uh oh",
-            category: "oh damn",
+            _id: "1",
+            title: "Error post",
+            author: "none",
+            date: "none",
+            category: "error",
             posttext: err
           }
         ]);

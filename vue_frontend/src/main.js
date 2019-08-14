@@ -42,9 +42,20 @@ const routes = [
     component: () => import("./components/posts/ListPosts.vue")
   },
   {
+    path: "/singlepost/:id",
+    component: () => import("./components/posts/SinglePost.vue"),
+    props: true
+  },
+  {
     path: "/newpost",
     component: () => import("./components/posts/AddPost.vue")
   },
+  {
+    path: "/newpostfailed/:message",
+    component: () => import("./components/posts/FailedPost.vue"),
+    props: true
+  },
+
   {
     path: "*",
     redirect: "/login"

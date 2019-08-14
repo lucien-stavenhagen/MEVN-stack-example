@@ -45,7 +45,7 @@ export default {
           this.$router.push("/posts");
         })
         .catch(err => {
-          console.log(err);
+          this.$router.push(`/newpostfailed/${err.message}`);
         });
     }
   },
