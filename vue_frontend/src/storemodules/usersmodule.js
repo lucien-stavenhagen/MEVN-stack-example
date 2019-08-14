@@ -19,6 +19,9 @@ const getters = {
   isLoggedIn: state => {
     return state.credentials.accessToken !== null;
   },
+  getUsersProxyStubs: state => {
+    return state.stubs;
+  },
   getCredentials: state => {
     return state.credentials;
   }

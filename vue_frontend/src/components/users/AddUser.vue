@@ -1,16 +1,16 @@
 <template>
   <div class="container">
     <div class="jumbotron text-center">
-      <h2>User Login Page</h2>
-      <router-link to="/adduser">
-        <h5>Don't have an account?</h5>
+      <h2>New User Account Page</h2>
+      <router-link to="/login">
+        <h5>login</h5>
       </router-link>
     </div>
-    <form class="dologin" @submit.prevent="dologin">
+    <form @submit.prevent="doNewUser">
       <div class="form-group">
         <label for="exampleInputEmail1">Username:</label>
         <input
-          v-model="login.username"
+          v-model="newuser.username"
           type="text"
           class="form-control"
           id="exampleInputEmail1"
@@ -21,7 +21,7 @@
       <div class="form-group">
         <label for="exampleInputPassword1">Password:</label>
         <input
-          v-model="login.password"
+          v-model="newuser.password"
           type="password"
           class="form-control"
           id="exampleInputPassword1"
@@ -34,24 +34,32 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import axios from "axios";
+
 export default {
-  name: "UserLogin",
-  computed: {},
+  name: "AddUser",
+  computed: {
+    ...mapGetters(["getProxy", "getUsersProxyStubs"])
+  },
   methods: {
-    dologin: function() {
-      this.$store
-        .dispatch("doLogin", { ...this.login })
+    doNewUser: function() {
+      axios
+        .post(
+          `${this.getProxy}${this.getUsersProxyStubs.newusersroute}`,
+          this.newuser
+        )
         .then(() => {
-          this.$router.push("/posts");
+          this.$router.push("/login");
         })
         .catch(err => {
-          this.$router.push(`/loginfailed/${err.message}`);
+          this.$router.push(`/adduserfailed/${err.message}`);
         });
     }
   },
   data() {
     return {
-      login: {
+      newuser: {
         username: "",
         password: ""
       }

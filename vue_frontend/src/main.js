@@ -24,6 +24,15 @@ const routes = [
     component: () => import("./components/pages/Home.vue")
   },
   {
+    path: "/adduser",
+    component: () => import("./components/users/AddUser.vue")
+  },
+  {
+    path: "/adduserfailed/:message",
+    component: () => import("./components/users/AddUserFailed.vue"),
+    props: true
+  },
+  {
     path: "/login",
     component: () => import("./components/users/UserLogin.vue")
   },
