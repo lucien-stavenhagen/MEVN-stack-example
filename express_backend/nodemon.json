@@ -1,0 +1,7 @@
+{
+  "env": {
+    "CROSS_ORIGIN": "true",
+    "PORT": 4001,
+    "PRIVATE_KEY": "abc-123+"
+  }
+}
