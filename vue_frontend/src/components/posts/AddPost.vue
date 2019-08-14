@@ -38,7 +38,7 @@ export default {
       console.log(proxy);
       console.log(bearer);
       axios
-        .post(proxy, this.post, {
+        .post(proxy, {...this.post}, {
           headers: { authorization: bearer }
         })
         .then(() => {
