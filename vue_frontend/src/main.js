@@ -8,7 +8,7 @@ import store from "./store";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import {mapActions} from 'vuex';
+import { mapActions } from "vuex";
 //
 // max's video at:
 // https://www.youtube.com/watch?v=ZYzAwFi5Xzo
@@ -66,7 +66,16 @@ const routes = [
     component: () => import("./components/posts/FailedPost.vue"),
     props: true
   },
-
+  {
+    path: "/editpost/:id",
+    component: () => import("./components/posts/EditPost.vue"),
+    props: true
+  },
+  {
+    path: "/deletepost/:id",
+    component: () => import("./components/posts/DeletePost.vue"),
+    props: true
+  },
   {
     path: "*",
     redirect: "/login"
@@ -83,10 +92,9 @@ new Vue({
   store,
   render: h => h(App),
   methods: {
-    ...mapActions(["checkLocalStorageForLogin",'fetchPosts'])
+    ...mapActions(["checkLocalStorageForLogin", "fetchPosts"])
   },
   created() {
     this.checkLocalStorageForLogin();
   }
-
 }).$mount("#app");

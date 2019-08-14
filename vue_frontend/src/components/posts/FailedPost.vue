@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="jumbotron text-center">
-      <h1>Post failed:</h1>
+      <h1>Post Operation failed:</h1>
       <h3>{{message}}</h3>
     </div>
   </div>

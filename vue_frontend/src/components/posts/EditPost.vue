@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form v-on:submit.prevent="submitPost">
+    <form v-on:submit.prevent="editPostById">
       <div class="form-group">
         <label>Title:</label>
         <input v-model="post.title" type="text" class="form-control" />
@@ -21,31 +21,32 @@
     </form>
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import axios from "axios";
 
 export default {
-  name: "AddPost",
+  name: "EditPost",
+  props: ["id"],
   computed: {
-    ...mapGetters(["getCredentials", "getProxy", "getPostsProxyStubs"]),
-    newPostEndPoint() {
-      return `${this.getProxy}${this.getPostsProxyStubs.newpostroute}`;
+    ...mapGetters(["getProxy", "getPostsProxyStubs", "getCredentials"]),
+    getPostByIdEndpoint() {
+      return `${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`;
+    },
+    editPostByIdEndpoint() {
+      return `${this.getProxy}${this.getPostsProxyStubs.editpostroute}/${this.id}`;
     },
     bearerToken() {
       return `Bearer ${this.getCredentials.accessToken}`;
     }
   },
   methods: {
-    submitPost() {
+    editPostById() {
       axios
-        .post(
-          this.newPostEndPoint,
+        .patch(
+          this.editPostByIdEndpoint,
           { ...this.post },
-          {
-            headers: { authorization: this.bearerToken }
-          }
+          { headers: { authorization: this.bearerToken } }
         )
         .then(() => {
           this.$router.push("/posts");
@@ -53,16 +54,31 @@ export default {
         .catch(err => {
           this.$router.push(`/newpostfailed/${err.message}`);
         });
+    },
+    getPostById() {
+      axios
+        .get(this.getPostByIdEndpoint)
+        .then(doc => {
+          this.post = { ...doc.data };
+        })
+        .catch(err => {
+          this.post = {
+            _id: "2",
+            title: "Single Error post",
+            author: "none",
+            date: "none",
+            category: "error",
+            posttext: err
+          };
+        });
     }
+  },
+  created() {
+    this.getPostById();
   },
   data() {
     return {
-      post: {
-        title: "",
-        author: "",
-        category: "",
-        posttext: ""
-      }
+      post: {}
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -76,6 +92,5 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 </style>

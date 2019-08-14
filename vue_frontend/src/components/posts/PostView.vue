@@ -6,6 +6,8 @@
       </a>
 
       <p class="card-text">
+        <span>id (debug): {{post._id}}</span>
+        <br/>
         <span>author: {{post.author}}</span>
         <br />
         <span>entered on: {{post.date}}</span>

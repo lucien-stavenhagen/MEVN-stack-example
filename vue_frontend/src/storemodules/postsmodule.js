@@ -3,7 +3,9 @@ import axios from "axios";
 const state = {
   stubs: {
     getpostsroute: "/api/posts",
-    newpostroute: "/api/posts/create"
+    newpostroute: "/api/posts/create",
+    editpostroute: "/api/posts/edit",
+    deletepostroute: "/api/posts/delete"
   }
 };
 const getters = {

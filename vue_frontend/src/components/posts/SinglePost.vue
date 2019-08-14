@@ -14,8 +14,8 @@
         <p>{{post.posttext}}</p>
       </div>
     </div>
-    <button class="btn btn-primary">Edit</button>
-    <button class="btn btn-danger">Delete</button>
+    <button v-on:click="gotoEditPost" class="btn btn-primary">Edit</button>
+    <button v-on:click="gotoDeletePost" class="btn btn-danger">Delete</button>
   </div>
 </template>
 
@@ -27,13 +27,22 @@ export default {
   name: "SinglePost",
   props: ["id"],
   computed: {
-    ...mapGetters(["getProxy","getPostsProxyStubs"])
+    ...mapGetters(["getProxy", "getPostsProxyStubs"]),
+    postByIdEndpoint() {
+      return `${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`;
+    }
   },
   methods: {
+    gotoEditPost() {
+      this.$router.push(`/editpost/${this.id}`);
+    },
+    gotoDeletePost() {
+      this.$router.push(`/deletepost/${this.id}`);
+    },
     getPostById() {
-      console.log(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`)
+      console.log(this.postByIdEndpoint);
       axios
-        .get(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`)
+        .get(this.postByIdEndpoint)
         .then(doc => {
           this.post = { ...doc.data };
         })
