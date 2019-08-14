@@ -7,6 +7,8 @@ import App from "./App.vue";
 import store from "./store";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import {mapActions} from 'vuex';
 //
 // max's video at:
 // https://www.youtube.com/watch?v=ZYzAwFi5Xzo
@@ -79,5 +81,12 @@ const router = new VueRouter({
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  methods: {
+    ...mapActions(["checkLocalStorageForLogin",'fetchPosts'])
+  },
+  created() {
+    this.checkLocalStorageForLogin();
+  }
+
 }).$mount("#app");

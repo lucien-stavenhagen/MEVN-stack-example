@@ -14,12 +14,6 @@ export default {
   components: {
     MenuBar
   },
-  methods: {
-    ...mapActions(["checkLocalStorageForLogin"])
-  },
-  created() {
-    this.checkLocalStorageForLogin();
-  }
 };
 </script>
 

@@ -14,23 +14,43 @@
         <p>{{post.posttext}}</p>
       </div>
     </div>
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-danger">Delete</button>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "SinglePost",
   props: ["id"],
-  methods: {},
   computed: {
-    ...mapGetters(["getPostById"])
+    ...mapGetters(["getProxy","getPostsProxyStubs"])
+  },
+  methods: {
+    getPostById() {
+      console.log(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`)
+      axios
+        .get(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`)
+        .then(doc => {
+          this.post = { ...doc.data };
+        })
+        .catch(err => {
+          this.post = {
+            _id: "2",
+            title: "Single Error post",
+            author: "none",
+            date: "none",
+            category: "error",
+            posttext: err
+          };
+        });
+    }
   },
   created() {
-    this.post = {
-      ...this.getPostById(this.id)
-    };
+    this.getPostById();
   },
   data() {
     return {

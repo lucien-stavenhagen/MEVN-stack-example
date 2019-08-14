@@ -16,7 +16,7 @@ exports.create_post = (request, response, next) => {
 };
 exports.get_all_posts = (request, response, next) => {
   Post.find({})
-    .sort({ date: -1 })
+    .sort({ category: -1 })
     .exec()
     .then(doc => response.json(doc))
     .catch(err => response.status(400).json({ error: err }));

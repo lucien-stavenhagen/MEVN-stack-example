@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <div v-bind:key="post._id" v-for="post in getAllPosts">
+      <div v-bind:key="post._id" v-for="post in posts">
         <PostView v-bind:post="post"></PostView>
       </div>
     </div>
@@ -10,7 +10,8 @@
 
 <script>
 import PostView from "./PostView.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "ListPosts",
@@ -18,13 +19,37 @@ export default {
     PostView
   },
   computed: {
-    ...mapGetters(["getAllPosts", "getPostById"])
+    ...mapGetters(["getPostsProxyStubs", "getProxy"])
   },
   methods: {
-    ...mapActions(["fetchPosts"])
+    getAllPosts() {
+      console.log(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}`);
+      axios
+        .get(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}`)
+        .then(doc => {
+          this.posts = [...doc.data];
+        })
+        .catch(err => {
+          this.posts = [
+            {
+              _id: "1",
+              title: "Error post",
+              author: "none",
+              date: "none",
+              category: "error",
+              posttext: err
+            }
+          ];
+        });
+    }
   },
   created() {
-    this.fetchPosts();
+    this.getAllPosts();
+  },
+  data() {
+    return {
+      posts: []
+    };
   }
 };
 </script>
