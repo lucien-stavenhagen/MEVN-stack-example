@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div class="jumbotron text-center">
-      <h2>Login failed: {{message}}</h2>
+      <h2>Login failed:</h2>
+      <h4>{{message}}</h4>
       <router-link to="/login">Back to Login</router-link>
     </div>
   </div>

@@ -4,8 +4,10 @@ import axios from "axios";
 // https://webdevchallenges.com/use-protected-routes-in-vue-js/
 //
 const state = {
-  loginstub: "/api/users/login",
-  newuserstub: "/api/users/addnew",
+  stubs: {
+    loginroute: "/api/users/login",
+    newusersroute: "/api/users/addnew"
+  },
   credentials: {
     accessToken: null,
     loggedinUser: null
@@ -63,7 +65,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit("loginStart");
       axios
-        .post(`${rootState.utilsModule.proxy}${state.loginstub}`, {
+        .post(`${rootState.utilsModule.proxy}${state.stubs.loginroute}`, {
           ...userData
         })
         .then(doc => {

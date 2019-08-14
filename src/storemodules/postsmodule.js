@@ -2,8 +2,8 @@ import axios from "axios";
 
 const state = {
   stubs: {
-    getposts: "/api/posts",
-    newpost: "/api/posts/create"
+    getpostsroute: "/api/posts",
+    newpostroute: "/api/posts/create"
   },
   //proxy: "https://jsonplaceholder.typicode.com",
   //getposts: "/posts",
@@ -33,7 +33,7 @@ const mutations = {
 const actions = {
   fetchPosts({ state, commit, rootState }) {
     axios
-      .get(`${rootState.utilsModule.proxy}${state.stubs.getposts}`)
+      .get(`${rootState.utilsModule.proxy}${state.stubs.getpostsroute}`)
       .then(response => {
         commit("initPosts", response.data);
       })

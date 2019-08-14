@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     submitPost() {
-      const proxy = `${this.getProxy}${this.getPostsProxyStubs.newpost}`;
+      const proxy = `${this.getProxy}${this.getPostsProxyStubs.newpostroute}`;
       const bearer = `Bearer ${this.getCredentials.accessToken}`;
       console.log(proxy);
       console.log(bearer);
@@ -41,7 +41,7 @@ export default {
         .post(proxy, this.post, {
           headers: { authorization: bearer }
         })
-        .then(doc => {
+        .then(() => {
           this.$router.push("/posts");
         })
         .catch(err => {
