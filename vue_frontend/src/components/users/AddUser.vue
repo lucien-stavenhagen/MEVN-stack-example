@@ -35,20 +35,25 @@
 
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
 
 export default {
   name: "AddUser",
   computed: {
-    ...mapGetters(["getProxy", "getUsersProxyStubs"])
+    ...mapGetters(["getProxy", "getUsersProxyStubs"]),
+    getNewUserEndpoint() {
+      return `${this.getProxy}${this.getUsersProxyStubs.newusersroute}`;
+    }
   },
   methods: {
-    doNewUser: function() {
-      axios
-        .post(
-          `${this.getProxy}${this.getUsersProxyStubs.newusersroute}`,
-          this.newuser
-        )
+    doNewUser() {
+      fetch(this.getNewUserEndpoint, {
+        method: "POST",
+        body: JSON.stringify(this.newuser),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
         .then(() => {
           this.$router.push("/login");
         })

@@ -11,7 +11,7 @@
 <script>
 import PostView from "./PostView.vue";
 import { mapGetters } from "vuex";
-import axios from "axios";
+
 
 export default {
   name: "ListPosts",
@@ -19,15 +19,20 @@ export default {
     PostView
   },
   computed: {
-    ...mapGetters(["getPostsProxyStubs", "getProxy"])
+    ...mapGetters(["getPostsProxyStubs", "getProxy"]),
+    getAllPostsRoute() {
+      return `${this.getProxy}${this.getPostsProxyStubs.getpostsroute}`;
+    }
   },
   methods: {
     getAllPosts() {
-      console.log(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}`);
-      axios
-        .get(`${this.getProxy}${this.getPostsProxyStubs.getpostsroute}`)
+      fetch(this.getAllPostsRoute, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
         .then(doc => {
-          this.posts = [...doc.data];
+          this.posts = [...doc];
         })
         .catch(err => {
           this.posts = [

@@ -23,7 +23,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
+
 
 export default {
   name: "EditPost",
@@ -42,12 +42,15 @@ export default {
   },
   methods: {
     editPostById() {
-      axios
-        .patch(
-          this.editPostByIdEndpoint,
-          { ...this.post },
-          { headers: { authorization: this.bearerToken } }
-        )
+      fetch(this.editPostByIdEndpoint, {
+        method: "PATCH",
+        body: JSON.stringify(this.post),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: this.bearerToken
+        }
+      })
+        .then(res => res.json())
         .then(() => {
           this.$router.push("/posts");
         })
@@ -56,10 +59,15 @@ export default {
         });
     },
     getPostById() {
-      axios
-        .get(this.getPostByIdEndpoint)
+      fetch(this.getPostByIdEndpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
         .then(doc => {
-          this.post = { ...doc.data };
+          this.post = { ...doc };
         })
         .catch(err => {
           this.post = {

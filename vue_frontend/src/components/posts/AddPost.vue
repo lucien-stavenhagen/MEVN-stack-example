@@ -24,7 +24,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
 
 export default {
   name: "AddPost",
@@ -39,14 +38,15 @@ export default {
   },
   methods: {
     submitPost() {
-      axios
-        .post(
-          this.newPostEndPoint,
-          { ...this.post },
+      fetch(this.newPostEndPoint,
           {
-            headers: { authorization: this.bearerToken }
-          }
-        )
+            method: "POST",
+            body: JSON.stringify(this.post),
+            headers:{
+              'Content-Type':'application/json',
+              authorization: this.bearerToken
+            }
+          }).then(res=>res.json())
         .then(() => {
           this.$router.push("/posts");
         })

@@ -1,4 +1,3 @@
-import axios from "axios";
 //
 // from
 // https://webdevchallenges.com/use-protected-routes-in-vue-js/
@@ -67,17 +66,21 @@ const actions = {
   doLogin({ state, commit, rootState }, userData) {
     return new Promise((resolve, reject) => {
       commit("loginStart");
-      axios
-        .post(`${rootState.utilsModule.proxy}${state.stubs.loginroute}`, {
-          ...userData
-        })
+      fetch(`${rootState.utilsModule.proxy}${state.stubs.loginroute}`, {
+        method: "POST",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
         .then(doc => {
           localStorage.setItem(
             rootState.utilsModule.tokenname,
-            JSON.stringify({ ...doc.data })
+            JSON.stringify(doc)
           );
           commit("updateCredentials", {
-            token: JSON.stringify(doc.data.token),
+            token: JSON.stringify(doc.token),
             username: userData.username
           });
           commit("loginStop", null);

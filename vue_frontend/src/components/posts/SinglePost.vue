@@ -21,7 +21,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
 
 export default {
   name: "SinglePost",
@@ -40,11 +39,15 @@ export default {
       this.$router.push(`/deletepost/${this.id}`);
     },
     getPostById() {
-      console.log(this.postByIdEndpoint);
-      axios
-        .get(this.postByIdEndpoint)
+      fetch(this.postByIdEndpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
         .then(doc => {
-          this.post = { ...doc.data };
+          this.post = { ...doc };
         })
         .catch(err => {
           this.post = {

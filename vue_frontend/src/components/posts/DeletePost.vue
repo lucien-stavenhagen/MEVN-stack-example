@@ -9,7 +9,6 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
 
 export default {
   name: "DeletePost",
@@ -28,13 +27,15 @@ export default {
       this.$router.push("/posts");
     },
     yesImSure() {
-      axios
-        .delete(this.deletePostByIdEndpoint, {
-          headers: { authorization: this.bearerToken }
-        })
-        .then(() => {
-          this.$router.push("/posts");
-        })
+      fetch(this.deletePostByIdEndpoint, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: this.bearerToken
+        }
+      })
+        .then(res => res.json())
+        .then(this.$router.push("/posts"))
         .catch(err => {
           this.$router.push(`/newpostfailed/${err.message}`);
         });
