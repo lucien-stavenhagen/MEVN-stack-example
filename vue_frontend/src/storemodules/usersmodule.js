@@ -80,7 +80,7 @@ const actions = {
             JSON.stringify(doc)
           );
           commit("updateCredentials", {
-            token: JSON.stringify(doc.token),
+            token: doc.token,
             username: userData.username
           });
           commit("loginStop", null);
