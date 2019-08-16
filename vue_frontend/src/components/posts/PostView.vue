@@ -4,18 +4,31 @@
       <a href="#" v-on:click="viewSingle(post._id)">
         <h5 class="card-title">{{post.title}}</h5>
       </a>
-
-      <p class="card-text">
-        <span>id (debug): {{post._id}}</span>
-        <br/>
-        <span>author: {{post.author}}</span>
-        <br />
-        <span>entered on: {{post.date}}</span>
-        <br />
-        <span>category: {{post.category}}</span>
-      </p>
-      <hr />
-      <p>{{post.posttext}}</p>
+      <small>
+        <p class="card-text font-weight-light">
+          <span>
+            <i>id (debug):</i>
+            {{post._id}}
+          </span>
+          <br />
+          <span>
+            <i>author:</i>
+            {{post.author}}
+          </span>
+          <br />
+          <span>
+            <i>entered on:</i>
+            {{post.date}}
+          </span>
+          <br />
+          <span>
+            <i>category:</i>
+            {{post.category}}
+          </span>
+        </p>
+        <hr />
+        <p class="font-weight-light">{{post.posttext}}</p>
+      </small>
     </div>
   </div>
 </template>

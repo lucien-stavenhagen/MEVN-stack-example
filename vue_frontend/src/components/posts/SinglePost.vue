@@ -5,17 +5,29 @@
         <router-link to="/posts">
           <h2 class="card-title">{{post.title}}</h2>
         </router-link>
-        <p class="card-text">
-          <span>author: {{post.author}}</span>
+        <p class="card-text font-weight-light">
+          <span>
+            <i>author:</i>
+            {{post.author}}
+          </span>
           <br />
-          <span>category: {{post.category}}</span>
+          <span>
+            <i>entered on:</i>
+            {{post.date}}
+          </span>
+          <br />
+          <span>
+            <i>category:</i>
+            {{post.category}}
+          </span>
         </p>
         <hr />
-        <p>{{post.posttext}}</p>
+        <p class="font-weight-light">{{post.posttext}}</p>
+        <hr />
+        <button v-on:click="gotoEditPost" class="btn btn-primary">Edit</button>
+        <button v-on:click="gotoDeletePost" class="btn btn-danger">Delete</button>
       </div>
     </div>
-    <button v-on:click="gotoEditPost" class="btn btn-primary">Edit</button>
-    <button v-on:click="gotoDeletePost" class="btn btn-danger">Delete</button>
   </div>
 </template>
 
