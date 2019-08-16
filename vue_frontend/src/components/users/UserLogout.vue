@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center border border-primary">
       <h1>{{username}} is logged out</h1>
     </div>
   </div>

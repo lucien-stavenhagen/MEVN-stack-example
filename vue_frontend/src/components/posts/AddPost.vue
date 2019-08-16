@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <div class="jumbotron border border-primary mb-1">
+      <h1 class="text-center">Add New Post</h1>
+      <router-link to="/posts">
+        <h5 class="text-center">Back to blog</h5>
+      </router-link>
+      <router-link to="/">
+        <h5 class="text-center">Home</h5>
+      </router-link>
+    </div>
     <form v-on:submit.prevent="submitPost">
       <div class="form-group">
         <label>Title:</label>
@@ -38,15 +47,15 @@ export default {
   },
   methods: {
     submitPost() {
-      fetch(this.newPostEndPoint,
-          {
-            method: "POST",
-            body: JSON.stringify(this.post),
-            headers:{
-              'Content-Type':'application/json',
-              authorization: this.bearerToken
-            }
-          }).then(res=>res.json())
+      fetch(this.newPostEndPoint, {
+        method: "POST",
+        body: JSON.stringify(this.post),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: this.bearerToken
+        }
+      })
+        .then(res => res.json())
         .then(() => {
           this.$router.push("/posts");
         })

@@ -75,10 +75,15 @@ const actions = {
       })
         .then(res => res.json())
         .then(doc => {
+          if(doc.token === null){
+            reject({message:doc.msg});
+          }
+          else{
           localStorage.setItem(
             rootState.utilsModule.tokenname,
             JSON.stringify(doc)
           );
+          }
           commit("updateCredentials", {
             token: doc.token,
             username: userData.username
