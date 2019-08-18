@@ -1,5 +1,9 @@
 <template>
   <div class="container">
+    <div class="jumbotron text-center mb-1 border border-primary">
+      <h1>Single Post View</h1>
+      <p class="text-muted">(Click on post title to return to post index)</p>
+    </div>
     <div class="card bg-light text-dark">
       <div class="card-body">
         <router-link to="/posts">
