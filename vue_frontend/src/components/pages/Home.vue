@@ -10,32 +10,24 @@
       <p class="main-text">
         Perhaps it'd be good to start off in a non-technical way, and dwell for a moment on something else. So, here are some great quotes to help us get into a good frame of mind:
         <br />
-        <q>
-          Beavis, it's not even normal to ask.
-          <cite>- Mike Judge</cite>
-        </q>
+        <q>Beavis, it's not even normal to ask.</q>
+        <cite>- Mike Judge</cite>
         <br />
-        <q>
-          I've never killed an innocent man.
-          <cite>
-            - Mark Brandon
-            <q>Chopper</q> Read
-            <small>(may he R.I.P.)</small>
-          </cite>
-        </q>
+        <q>I've never killed an innocent man.</q>
+        <cite>
+          - Mark Brandon
+          <q>Chopper</q> Read
+          <small>(may he R.I.P.)</small>
+        </cite>
         <br />
-        <q>
-          Those cubicles look like they fell out of the top of the ugly tree and hit every branch on the way down.
-          <cite>
-            - Eddie M. from Metrowerks, commenting on the
-            <q>industrial</q> cubicle design
-          </cite>
-        </q>
+        <q>Those cubicles look like they fell out of the top of the ugly tree and hit every branch on the way down.</q>
+        <cite>
+          - Eddie M. from Metrowerks, commenting on the
+          <q>industrial</q> cubicle design
+        </cite>
         <br />
-        <q>
-          You buy em books, you send em to school, and they eat the teacher.
-          <cite>- Jesse, from 2J's hamburgers</cite>
-        </q>
+        <q>You buy em books, you send em to school, and they eat the teacher.</q>
+        <cite>- Jesse, from 2J's hamburgers</cite>
       </p>
     </div>
   </div>
