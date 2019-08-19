@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="navbar-brand">Blog App</div>
+    <img class="navbar-brand" style="max-height:50px; max-width:50px" :src="icon" />
     <button
       class="navbar-toggler"
       type="button"
@@ -44,7 +44,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import icon from "../../assets/logo.png";
 export default {
   name: "MenuBar",
   computed: {
@@ -54,6 +54,11 @@ export default {
     myLogout() {
       this.$router.push(`/logout/${this.getCredentials.loggedinUser}`);
     }
+  },
+  data() {
+    return {
+      icon
+    };
   }
 };
 </script>
