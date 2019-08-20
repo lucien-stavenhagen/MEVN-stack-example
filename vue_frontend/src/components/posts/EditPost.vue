@@ -1,6 +1,15 @@
 <template>
   <div class="container">
+    <div class="jumbotron text-center border border-primary mb-1">
+      <h1>Edit Post</h1>
+    </div>
     <form v-on:submit.prevent="editPostById">
+      <div class="form-group">
+        <div v-if="post.imagelink !== 'null'" class="thumbnail-view">
+          <label>Image:</label>
+          <img v-bind:src="post.imagelink" />
+        </div>
+      </div>
       <div class="form-group">
         <label>Title:</label>
         <input v-model="post.title" type="text" class="form-control" />
@@ -23,7 +32,6 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-
 
 export default {
   name: "EditPost",
@@ -76,7 +84,8 @@ export default {
             author: "none",
             date: "none",
             category: "error",
-            posttext: err
+            posttext: err,
+            imagelink: "null"
           };
         });
     }
@@ -101,4 +110,15 @@ export default {
 };
 </script>
 <style scoped>
+.thumbnail-view {
+  max-width: 100%;
+  width: auto;
+}
+img {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  border-radius: 2px;
+  border: 3px solid rgba(0, 0, 0, 0.7);
+}
 </style>

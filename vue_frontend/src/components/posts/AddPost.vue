@@ -61,11 +61,12 @@ export default {
   methods: {
     submitPost() {
       const fd = new FormData();
-      fd.append("postimage", this.post.postimage);
+      fd.append("imagelink", this.post.imagelink);
       fd.append("title", this.post.title);
       fd.append("author", this.post.author);
       fd.append("category", this.post.category);
       fd.append("posttext", this.post.posttext);
+      fd.append("postimage", this.post.postimage);
       fetch(this.newPostEndPoint, {
         method: "POST",
         body: fd,
