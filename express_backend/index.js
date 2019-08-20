@@ -5,7 +5,7 @@ const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 
-const uploadsdir = require("./middleware/multer/multerSetup").uploadsdir;
+const uploadsdir = require("./utils/utils").uploadsdir;
 
 const PORT = process.env.PORT || 4000;
 const HOST = process.env.HOST;

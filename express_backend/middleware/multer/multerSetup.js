@@ -2,7 +2,7 @@
 // max's tutorial at
 // https://www.youtube.com/watch?v=srPXMt1Q0nY&list=PL55RiY5tL51q4D-B63KBnygU6opNPFk_q&index=10
 //
-const uploadsdir = "uploads/";
+const uploadsdir = require("../../utils/utils").uploadsdir;
 const multer = require("multer");
 const storage = multer.diskStorage({
   destination: function(request, file, callback) {
@@ -22,7 +22,7 @@ const fileFilter = (request, file, callback) => {
     callback(null, true);
   }
 };
-exports.uploadsdir = uploadsdir;
+
 exports.upload = multer({
   storage: storage,
   limits: {

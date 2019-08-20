@@ -5,7 +5,7 @@ const fs = require("fs");
 // repeated from models/PostMongo.js
 // need to put in a utils class
 //
-const HOST_URI = `http://${process.env.HOST}:${process.env.PORT}/`;
+const HOST_URI = require("../utils/utils").HOST_URI;
 const uuidv1 = require("uuid/v1");
 
 exports.get_uploaded_images = (request, response, next) => {

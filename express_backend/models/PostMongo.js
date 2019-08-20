@@ -1,7 +1,7 @@
 //
 // get HOST name from environment
 //
-const HOST_URI = `http://${process.env.HOST}:${process.env.PORT}/`;
+const HOST_URI = require("../utils/utils").HOST_URI;
 
 //setup mongoose
 const mongoose = require("mongoose");
