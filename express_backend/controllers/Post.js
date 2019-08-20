@@ -7,6 +7,7 @@ exports.create_post = (request, response, next) => {
       .status(400)
       .json({ error: "posts must have title, name and posttext" });
   } else {
+    console.log(request.file);
     const newpost = new Post(initPost(request));
     newpost
       .save()

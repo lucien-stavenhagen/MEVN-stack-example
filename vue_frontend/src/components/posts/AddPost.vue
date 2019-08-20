@@ -9,7 +9,20 @@
         <h5 class="text-center">Home</h5>
       </router-link>
     </div>
-    <form v-on:submit.prevent="submitPost">
+    <form enctype="multipart/form-data" v-on:submit.prevent="submitPost">
+      <div class="form-group">
+        <label>Image:</label>
+        <div class="custom-file">
+          <label id="homey-label" class="custom-file-label" for="post-image">Choose Image File...</label>
+          <input
+            type="file"
+            class="custom-file-input"
+            name="filename"
+            id="post-image"
+            v-on:change="previewFile"
+          />
+        </div>
+      </div>
       <div class="form-group">
         <label>Title:</label>
         <input v-model="post.title" type="text" class="form-control" />
@@ -33,6 +46,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import $ from "jquery";
 
 export default {
   name: "AddPost",
@@ -47,11 +61,16 @@ export default {
   },
   methods: {
     submitPost() {
+      const fd = new FormData();
+      fd.append("postimage", this.post.postimage);
+      fd.append("title", this.post.title);
+      fd.append("author", this.post.author);
+      fd.append("category", this.post.category);
+      fd.append("posttext", this.post.posttext);
       fetch(this.newPostEndPoint, {
         method: "POST",
-        body: JSON.stringify(this.post),
+        body: fd,
         headers: {
-          "Content-Type": "application/json",
           authorization: this.bearerToken
         }
       })
@@ -62,6 +81,11 @@ export default {
         .catch(err => {
           this.$router.push(`/newpostfailed/${err.message}`);
         });
+    },
+    previewFile(event) {
+      this.post.postimage = event.target.files[0];
+      const info = document.getElementById("homey-label");
+      info.innerHTML = this.post.postimage.name;
     }
   },
   data() {
@@ -70,7 +94,8 @@ export default {
         title: "",
         author: "",
         category: "",
-        posttext: ""
+        posttext: "",
+        postimage: null
       }
     };
   },

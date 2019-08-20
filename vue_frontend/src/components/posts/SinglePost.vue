@@ -26,12 +26,14 @@
           </span>
         </p>
         <hr />
-        <p class="font-weight-light">{{post.posttext}}</p>
-        <hr />
-        <button v-on:click="gotoEditPost" class="btn btn-primary">Edit</button>
-        <button v-on:click="gotoDeletePost" class="btn btn-danger">Delete</button>
+        <p class="font-weight-light">
+          <img v-if="post.imagelink !== null" v-bind:src="post.imagelink" class="post-image" />
+          {{post.posttext}}
+        </p>
       </div>
     </div>
+    <button v-on:click="gotoEditPost" class="btn btn-primary">Edit</button>
+    <button v-on:click="gotoDeletePost" class="btn btn-danger">Delete</button>
   </div>
 </template>
 
@@ -89,4 +91,12 @@ export default {
 </script>
 
 <style scoped>
+.post-image {
+  max-width: 60%;
+  width: auto;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: 3px solid rgba(0, 0, 0, 0.7);
+  float: left;
+}
 </style>

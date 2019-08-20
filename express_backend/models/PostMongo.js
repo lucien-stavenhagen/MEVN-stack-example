@@ -1,3 +1,8 @@
+//
+// get HOST name from environment
+//
+const HOST_URI = `http://${process.env.HOST}:${process.env.PORT}/`;
+
 //setup mongoose
 const mongoose = require("mongoose");
 // define a schema for mongoose model
@@ -7,7 +12,8 @@ const postSchema = new mongoose.Schema({
   author: String,
   date: String,
   category: String,
-  posttext: String
+  posttext: String,
+  imagelink: String
 });
 
 const Post = mongoose.model("Post", postSchema);
@@ -19,7 +25,8 @@ const initPost = request => {
     author: request.body.author,
     date: new Date().toLocaleString(),
     category: request.body.category ? request.body.category : "general",
-    posttext: request.body.posttext
+    posttext: request.body.posttext,
+    imagelink: request.file ? `${HOST_URI}${request.file.path}` : null
   };
 };
 

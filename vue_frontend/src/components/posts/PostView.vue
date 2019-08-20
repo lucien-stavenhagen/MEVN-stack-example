@@ -27,7 +27,10 @@
           </span>
         </p>
         <hr />
-        <p class="font-weight-light">{{post.posttext}}</p>
+        <p class="card-text font-weight-light">
+          <img v-if="post.imagelink !== null" v-bind:src="post.imagelink" class="post-image" />
+          {{post.posttext}}
+        </p>
       </small>
     </div>
   </div>
@@ -46,4 +49,12 @@ export default {
 </script>
 
 <style scoped>
+.post-image {
+  max-width: 60%;
+  width: auto;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: 3px solid rgba(0, 0, 0, 0.7);
+  float: left;
+}
 </style>
