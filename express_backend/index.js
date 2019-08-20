@@ -54,5 +54,7 @@ app.use(`/${uploadsdir}`, express.static(path.join(__dirname, uploadsdir)));
 app.use("/api/posts", require("./routes/posts"));
 //grab users API router
 app.use("/api/users", require("./routes/users"));
+// grab images API router
+app.use("/api/images", require("./routes/images"));
 
 app.listen(PORT, HOST, () => console.log(`listening on port ${PORT}`));

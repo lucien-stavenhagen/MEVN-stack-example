@@ -2,12 +2,17 @@
   <div class="container">
     <div class="jumbotron mb-1 border border-primary">
       <h1 class="text-center">Blog Page</h1>
-      <hr/>
+      <hr />
       <h5>Here you will find the blog of Wile E. Coder...</h5>
     </div>
-    <div>
+    <div v-if="posts.length > 0">
       <div v-bind:key="post._id" v-for="post in posts">
         <PostView v-bind:post="post"></PostView>
+      </div>
+    </div>
+    <div class="card" v-else>
+      <div class="card-body text-center">
+        <p class="card-title">No posts found on server.</p>
       </div>
     </div>
   </div>
@@ -16,7 +21,6 @@
 <script>
 import PostView from "./PostView.vue";
 import { mapGetters } from "vuex";
-
 
 export default {
   name: "ListPosts",

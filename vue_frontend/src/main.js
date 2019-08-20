@@ -49,6 +49,10 @@ const routes = [
     props: true
   },
   {
+    path: "/images",
+    component: () => import("./components/pages/ImageGallery.vue")
+  },
+  {
     path: "/posts",
     component: () => import("./components/posts/ListPosts.vue")
   },
