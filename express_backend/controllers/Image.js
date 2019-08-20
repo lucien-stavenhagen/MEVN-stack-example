@@ -1,4 +1,4 @@
-const uploads = require("../middleware/multer/multerSetup").uploadsdir;
+const uploads = require("../utils/utils").uploadsdir;
 const fs = require("fs");
 
 //
