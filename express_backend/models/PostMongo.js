@@ -26,7 +26,9 @@ const initPost = request => {
     date: new Date().toLocaleString(),
     category: request.body.category ? request.body.category : "general",
     posttext: request.body.posttext,
-    imagelink: request.file ? `${HOST_URI}${request.file.path}` : null
+    imagelink: request.file
+      ? `${HOST_URI}${request.file.path}`
+      : request.body.imagelink
   };
 };
 

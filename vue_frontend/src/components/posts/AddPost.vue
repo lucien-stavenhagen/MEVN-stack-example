@@ -94,7 +94,8 @@ export default {
         author: "",
         category: "",
         posttext: "",
-        postimage: null
+        postimage: "null",
+        imagelink: "null"
       }
     };
   },

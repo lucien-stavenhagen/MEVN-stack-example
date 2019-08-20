@@ -28,7 +28,7 @@
         </p>
         <hr />
         <p class="card-text font-weight-light">
-          <img v-if="post.imagelink !== null" v-bind:src="post.imagelink" class="post-image" />
+          <img v-if="post.imagelink !== 'null'" v-bind:src="post.imagelink" class="post-image" />
           {{post.posttext}}
         </p>
       </small>
