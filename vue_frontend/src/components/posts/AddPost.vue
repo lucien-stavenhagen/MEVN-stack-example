@@ -9,19 +9,18 @@
         <h5 class="text-center">Home</h5>
       </router-link>
     </div>
-    <form enctype="multipart/form-data" v-on:submit.prevent="submitPost">
+    <form v-on:submit.prevent="submitPost">
       <div class="form-group">
-        <label>Image:</label>
-        <div class="custom-file">
-          <label id="homey-label" class="custom-file-label" for="post-image">Choose Image File...</label>
-          <input
-            type="file"
-            class="custom-file-input"
-            name="filename"
-            id="post-image"
-            v-on:change="previewFile"
-          />
-        </div>
+        <label for="exampleFormControlSelect2">Would you like an image?</label>
+        <select class="form-control" id="exampleFormControlSelect2" v-on:change="setImage">
+          <option selected value="None">None</option>
+          <option
+            v-bind:key="image.id"
+            v-for="image in images"
+            v-bind:value="image.path"
+          >{{image.name}}</option>
+        </select>
+        <img v-if="post.imagelink !== 'None'" v-bind:src="post.imagelink" class="thumbnail-img" />
       </div>
       <div class="form-group">
         <label>Title:</label>
@@ -50,9 +49,17 @@ import { mapGetters } from "vuex";
 export default {
   name: "AddPost",
   computed: {
-    ...mapGetters(["getCredentials", "getProxy", "getPostsProxyStubs"]),
+    ...mapGetters([
+      "getCredentials",
+      "getProxy",
+      "getPostsProxyStubs",
+      "getImagesProxyRoute"
+    ]),
     newPostEndPoint() {
       return `${this.getProxy}${this.getPostsProxyStubs.newpostroute}`;
+    },
+    getImagesEndPoint() {
+      return `${this.getProxy}${this.getImagesProxyRoute.getimagesroute}`;
     },
     bearerToken() {
       return `Bearer ${this.getCredentials.accessToken}`;
@@ -60,17 +67,11 @@ export default {
   },
   methods: {
     submitPost() {
-      const fd = new FormData();
-      fd.append("imagelink", this.post.imagelink);
-      fd.append("title", this.post.title);
-      fd.append("author", this.post.author);
-      fd.append("category", this.post.category);
-      fd.append("posttext", this.post.posttext);
-      fd.append("postimage", this.post.postimage);
       fetch(this.newPostEndPoint, {
         method: "POST",
-        body: fd,
+        body: JSON.stringify(this.post),
         headers: {
+          "Content-Type": "application/json",
           authorization: this.bearerToken
         }
       })
@@ -82,10 +83,8 @@ export default {
           this.$router.push(`/newpostfailed/${err.message}`);
         });
     },
-    previewFile(event) {
-      this.post.postimage = event.target.files[0];
-      const info = document.getElementById("homey-label");
-      info.innerHTML = this.post.postimage.name;
+    setImage(event) {
+      this.post.imagelink = event.target.value;
     }
   },
   data() {
@@ -95,10 +94,23 @@ export default {
         author: "",
         category: "",
         posttext: "",
-        postimage: "null",
-        imagelink: "null"
-      }
+        imagelink: "None"
+      },
+      images: []
     };
+  },
+  created() {
+    fetch(this.getImagesEndPoint, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(images => {
+        this.images = [...this.images, ...images.images];
+      })
+      .catch(err => console.log(err));
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -113,4 +125,11 @@ export default {
 </script>
 
 <style scoped>
+.thumbnail-img {
+  margin-top: 3px;
+  max-width: 100%;
+  border: 3px solid rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  width: auto;
+}
 </style>

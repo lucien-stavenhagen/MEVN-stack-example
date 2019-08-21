@@ -5,9 +5,17 @@
     </div>
     <form v-on:submit.prevent="editPostById">
       <div class="form-group">
-        <div v-if="post.imagelink !== 'null'" class="thumbnail-view">
-          <label>Image:</label>
-          <img v-bind:src="post.imagelink" />
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">Change image</label>
+          <select class="form-control" id="exampleFormControlSelect2" v-on:change="setImage">
+            <option selected value="None">None</option>
+            <option
+              v-bind:key="image.id"
+              v-for="image in images"
+              v-bind:value="image.path"
+            >{{image.name}}</option>
+          </select>
+          <img v-if="post.imagelink !== 'None'" v-bind:src="post.imagelink" class="thumbnail-img" />
         </div>
       </div>
       <div class="form-group">
@@ -37,12 +45,20 @@ export default {
   name: "EditPost",
   props: ["id"],
   computed: {
-    ...mapGetters(["getProxy", "getPostsProxyStubs", "getCredentials"]),
+    ...mapGetters([
+      "getProxy",
+      "getPostsProxyStubs",
+      "getCredentials",
+      "getImagesProxyRoute"
+    ]),
     getPostByIdEndpoint() {
       return `${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`;
     },
     editPostByIdEndpoint() {
       return `${this.getProxy}${this.getPostsProxyStubs.editpostroute}/${this.id}`;
+    },
+    getImagesEndPoint() {
+      return `${this.getProxy}${this.getImagesProxyRoute.getimagesroute}`;
     },
     bearerToken() {
       return `Bearer ${this.getCredentials.accessToken}`;
@@ -88,14 +104,35 @@ export default {
             imagelink: "null"
           };
         });
+    },
+    setImage(event) {
+      this.post.imagelink = event.target.value;
     }
   },
   created() {
     this.getPostById();
+    fetch(this.getImagesEndPoint, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(images => {
+        this.images = [...this.images, ...images.images];
+      })
+      .catch(err => console.log(err));
   },
   data() {
     return {
-      post: {}
+      post: {
+        title: "",
+        author: "",
+        category: "",
+        posttext: "",
+        imagelink: "None"
+      },
+      images: []
     };
   },
   beforeRouteEnter(to, from, next) {
