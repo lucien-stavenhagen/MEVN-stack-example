@@ -9,17 +9,17 @@ const storage = multer.diskStorage({
     callback(null, uploadsdir);
   },
   filename: function(request, file, callback) {
-    callback(null, new Date().toISOString() + file.originalname);
+    callback(null, Date.now().toString() + file.originalname);
   }
 });
 
 const fileFilter = (request, file, callback) => {
-  //reject
+  //accept
   if (file.mimetype === "image/jpg" || file.mimetype === "image/png") {
     callback(null, true);
   } else {
-    //accept
-    callback(null, true);
+    //reject
+    callback(null,false);
   }
 };
 
