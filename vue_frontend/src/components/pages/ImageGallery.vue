@@ -4,7 +4,7 @@
       <div class="jumbotron text-center mb-1 border border-primary">
         <h1>Image Gallery</h1>
       </div>
-      <div class="container p-0 mb-1">
+      <div v-if="this.$store.getters.isLoggedIn" class="container p-0 mb-1">
         <form enctype="multipart/form-data" v-on:submit.prevent="uploadImage">
           <div class="custom-file">
             <input
@@ -18,6 +18,9 @@
           </div>
           <button class="btn btn-primary" type="submit">Upload</button>
         </form>
+      </div>
+      <div v-else class="container bg-light rounded border border-primary mb-1 align-middle">
+        <p class="p-0 m-2"><router-link to="/login">Login here</router-link> to upload images...</p>
       </div>
     </div>
     <ImageView v-bind:images="images" />
@@ -40,12 +43,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getImagesProxyRoute", "getProxy"]),
+    ...mapGetters(["getImagesProxyRoute", "getProxy","getCredentials"]),
     getImagesEndPoint() {
       return `${this.getProxy}${this.getImagesProxyRoute.getimagesroute}`;
     },
     uploadEndPoint() {
       return `${this.getProxy}${this.getImagesProxyRoute.uploadroute}`;
+    },
+    bearerToken() {
+      return `Bearer ${this.getCredentials.accessToken}`;
     }
   },
   methods: {
@@ -64,7 +70,10 @@ export default {
       fd.set("newimage", this.newimage);
       fetch(this.uploadEndPoint, {
         method: "POST",
-        body: fd
+        body: fd,
+        headers:{
+          authorization: this.bearerToken
+        }
       })
         .then(res => res.json())
         .then(() => this.utilityFetchImages())
@@ -77,6 +86,7 @@ export default {
         .catch();
     }
   },
+
   created() {
     this.utilityFetchImages();
   }
