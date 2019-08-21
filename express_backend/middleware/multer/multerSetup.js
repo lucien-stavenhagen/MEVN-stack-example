@@ -15,11 +15,11 @@ const storage = multer.diskStorage({
 
 const fileFilter = (request, file, callback) => {
   //accept
-  if (file.mimetype === "image/jpg" || file.mimetype === "image/png") {
+  if (file.mimetype === "image/jpg" || file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     callback(null, true);
   } else {
     //reject
-    callback(null,false);
+    callback(new Error("invalid mime type: " + file.mimetype),false);
   }
 };
 
