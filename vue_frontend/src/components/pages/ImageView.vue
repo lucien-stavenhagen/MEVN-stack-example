@@ -43,7 +43,7 @@ export default {
   max-width: 100%;
   width: auto;
 }
-@media screen and (max-width:992px){
+@media screen and (max-width:1200px){
   .gallery{
     grid-template-columns: 1fr 1fr 1fr
   }
