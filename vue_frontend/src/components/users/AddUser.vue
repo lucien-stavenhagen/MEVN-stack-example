@@ -8,7 +8,7 @@
     </div>
     <form @submit.prevent="doNewUser">
       <div class="form-group">
-        <label for="exampleInputEmail1">Username:</label>
+        <label for="exampleInputEmail1">Username ({{minlength}} or more characters):</label>
         <input
           v-model="newuser.username"
           type="text"
@@ -17,9 +17,10 @@
           aria-describedby="emailHelp"
           placeholder
         />
+        <b v-if="this.formerrors.nousername">{{this.formerrors.nousername}}</b>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password:</label>
+        <label for="exampleInputPassword1">Password ({{minlength}} or more characters):</label>
         <input
           v-model="newuser.password"
           type="password"
@@ -27,6 +28,7 @@
           id="exampleInputPassword1"
           placeholder
         />
+        <b v-if="this.formerrors.nopassword">{{this.formerrors.nopassword}}</b>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -45,7 +47,34 @@ export default {
     }
   },
   methods: {
+    checkform() {
+      //
+      // a variation on vue documentation cookbook at
+      // https://vuejs.org/v2/cookbook/form-validation.html
+      //
+
+      if (
+        this.newuser.username.length >= this.minlength &&
+        this.newuser.password.length >= this.minlength
+      ) {
+        return true;
+      }
+      this.formerrors.nousername = null;
+      this.formerrors.nopassword = null;
+      if (this.newuser.username.length < this.minlength) {
+        this.formerrors.nousername = "Username too short";
+      }
+      if (this.newuser.password.length < this.minlength) {
+        this.formerrors.nopassword = "Password too short";
+      }
+      return false;
+    },
     doNewUser() {
+      if (this.checkform()) {
+        this.addNewUserToDB();
+      }
+    },
+    addNewUserToDB() {
       fetch(this.getNewUserEndpoint, {
         method: "POST",
         body: JSON.stringify(this.newuser),
@@ -64,6 +93,11 @@ export default {
   },
   data() {
     return {
+      minlength: 4,
+      formerrors: {
+        nousername: null,
+        nopassword: null
+      },
       newuser: {
         username: "",
         password: ""
@@ -74,4 +108,7 @@ export default {
 </script>
 
 <style scoped>
+b {
+  color: red;
+}
 </style>

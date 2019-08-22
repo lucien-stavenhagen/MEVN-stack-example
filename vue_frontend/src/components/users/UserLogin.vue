@@ -17,6 +17,7 @@
           aria-describedby="emailHelp"
           placeholder
         />
+        <b v-if="this.formerrors.nousername">{{this.formerrors.nousername}}</b>
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password:</label>
@@ -27,6 +28,7 @@
           id="exampleInputPassword1"
           placeholder
         />
+        <b v-if="this.formerrors.nopassword">{{this.formerrors.nopassword}}</b>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -38,7 +40,34 @@ export default {
   name: "UserLogin",
   computed: {},
   methods: {
-    dologin: function() {
+    checkForm() {
+      //
+      // a variation on vue documentation cookbook at
+      // https://vuejs.org/v2/cookbook/form-validation.html
+      //
+
+      if (
+        this.login.username.length >= this.minlength &&
+        this.login.password.length >= this.minlength
+      ) {
+        return true;
+      }
+      this.formerrors.nousername = null;
+      this.formerrors.nopassword = null;
+      if (this.login.username.length < this.minlength) {
+        this.formerrors.nousername = `Username must be at least ${this.minlength} characters`;
+      }
+      if (this.login.password.length < this.minlength) {
+        this.formerrors.nopassword = `Password must be at least ${this.minlength} characters`;
+      }
+      return false;
+    },
+    dologin() {
+      if (this.checkForm()) {
+        this.nowDoLogin();
+      }
+    },
+    nowDoLogin() {
       this.$store
         .dispatch("doLogin", { ...this.login })
         .then(() => {
@@ -51,6 +80,11 @@ export default {
   },
   data() {
     return {
+      minlength: 4,
+      formerrors: {
+        nousername: null,
+        nopassword: null
+      },
       login: {
         username: "",
         password: ""
@@ -61,4 +95,7 @@ export default {
 </script>
 
 <style scoped>
+b {
+  color: crimson;
+}
 </style>
