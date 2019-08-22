@@ -12,4 +12,6 @@ router.post(
   upload.single("newimage"),
   imagesController.upload_image
 );
+router.post("/delete", verifyUser, imagesController.delete_image);
+
 module.exports = router;

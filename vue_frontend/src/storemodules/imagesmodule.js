@@ -1,7 +1,8 @@
 const state = {
   stubs: {
     getimagesroute: "/api/images/getall",
-    uploadroute: "/api/images/upload"
+    uploadroute: "/api/images/upload",
+    deleteroute: "/api/images/delete"
   }
 };
 const getters = {

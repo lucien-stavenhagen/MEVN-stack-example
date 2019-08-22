@@ -5,6 +5,11 @@
         <div class="img-container">
           <img v-bind:src="image.path" />
         </div>
+        <button
+          v-if="$store.getters.isLoggedIn"
+          class="btn btn-outline-danger btn-sm"
+          v-on:click="$emit('delete-image',image)"
+        >Delete</button>
       </div>
     </div>
     <div class="card" v-else>
@@ -15,9 +20,13 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "ImageView",
-  props: ["images"]
+  props: ["images"],
+  computed: {},
+  methods: {}
 };
 </script>
 <style scoped>
@@ -31,9 +40,7 @@ export default {
   border-radius: 2px;
   border: 3px solid rgba(0, 0, 0, 0.7);
 }
-.img-container:hover {
-  cursor: pointer;
-}
+
 .gallery img {
   max-width: 100%;
   width: auto;

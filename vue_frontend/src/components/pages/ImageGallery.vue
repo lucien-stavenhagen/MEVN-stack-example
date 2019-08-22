@@ -5,7 +5,11 @@
         <h1>Image Gallery</h1>
       </div>
       <div class="container p-0 mb-1">
-        <button v-if="!switchview.toggle" class="btn btn-primary" v-on:click="switchViews">{{switchview.carousel}}</button>
+        <button
+          v-if="!switchview.toggle"
+          class="btn btn-primary"
+          v-on:click="switchViews"
+        >{{switchview.carousel}}</button>
         <button v-else class="btn btn-primary" v-on:click="switchViews">{{switchview.gridview}}</button>
       </div>
       <div v-if="this.$store.getters.isLoggedIn" class="container p-0 mb-1">
@@ -25,12 +29,12 @@
       </div>
       <div v-else class="container bg-light rounded border border-primary mb-1 align-middle">
         <p class="p-0 m-2">
-          <router-link to="/login">Login here</router-link> to upload images...
+          <router-link to="/login">Login here to manage gallery</router-link>
         </p>
       </div>
     </div>
     <ImageCarousel v-if="switchview.toggle" v-bind:images="images" />
-    <ImageView v-else v-bind:images="images" />
+    <ImageView v-else v-bind:images="images" v-on:delete-image="imgClicked($event)" />
   </div>
 </template>
 
@@ -63,16 +67,33 @@ export default {
     uploadEndPoint() {
       return `${this.getProxy}${this.getImagesProxyRoute.uploadroute}`;
     },
+    deleteImageEndPoint() {
+      return `${this.getProxy}${this.getImagesProxyRoute.deleteroute}`;
+    },
     bearerToken() {
       return `Bearer ${this.getCredentials.accessToken}`;
     }
   },
   methods: {
+    imgClicked(image) {
+      if (confirm("Are you sure?")) {
+        fetch(this.deleteImageEndPoint, {
+          method: "POST",
+          body: JSON.stringify({ filename: image.name }),
+          headers: {
+            "Content-Type": "application/json",
+            authorization: this.bearerToken
+          }
+        })
+          .then(res => res.json())
+          .then(() => {
+            this.utilityFetchImages();
+          })
+          .catch(err => console.log(err));
+      }
+    },
     switchViews() {
       this.switchview.toggle = !this.switchview.toggle;
-    },
-    imgClicked() {
-      console.log("image clicked");
     },
     displayName(event) {
       this.newimage = event.target.files[0];
