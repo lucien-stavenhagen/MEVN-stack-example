@@ -32,7 +32,7 @@ export default {
   display: grid;
   grid-gap: 3px;
   justify-content: space-around;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .img-container {
   border-radius: 2px;
@@ -42,5 +42,20 @@ export default {
 .gallery img {
   max-width: 100%;
   width: auto;
+}
+@media screen and (max-width:992px){
+  .gallery{
+    grid-template-columns: 1fr 1fr 1fr
+  }
+}
+@media screen and (max-width:768px){
+  .gallery{
+    grid-template-columns: 1fr 1fr
+  }
+}
+@media screen and (max-width:576px){
+  .gallery{
+    grid-template-columns: 1fr
+  }
 }
 </style>
