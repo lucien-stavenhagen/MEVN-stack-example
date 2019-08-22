@@ -25,18 +25,21 @@
       <div class="form-group">
         <label>Title:</label>
         <input v-model="post.title" type="text" class="form-control" />
+        <b v-if="this.formerrors.title">{{this.formerrors.title}}</b>
       </div>
       <div class="form-group">
         <label>Author:</label>
         <input v-model="post.author" type="text" class="form-control" />
+        <b v-if="this.formerrors.author">{{this.formerrors.author}}</b>
       </div>
       <div class="form-group">
-        <label>Category:</label>
+        <label>Category (optional, default: "general"):</label>
         <input v-model="post.category" type="text" class="form-control" />
       </div>
       <div class="form-group">
         <label>Post text:</label>
         <textarea v-model="post.posttext" type="text" class="form-control" />
+        <b v-if="this.formerrors.posttext">{{this.formerrors.posttext}}</b>
       </div>
       <button type="submit" class="btn btn-primary">Submit Post</button>
     </form>
@@ -66,7 +69,36 @@ export default {
     }
   },
   methods: {
+    checkForm() {
+      if (
+        this.post.title.length > 0 &&
+        this.post.author.length > 0 &&
+        this.post.posttext.length > 0
+      ) {
+        return true;
+      }
+
+      this.formerrors.title = null;
+      this.formerrors.author = null;
+      this.formerrors.posttext = null;
+
+      if (this.post.title.length === 0) {
+        this.formerrors.title = "Title required";
+      }
+      if (this.post.author.length === 0) {
+        this.formerrors.author = "Author required";
+      }
+      if (this.post.posttext.length === 0) {
+        this.formerrors.posttext = "Post text required";
+      }
+      return false;
+    },
     submitPost() {
+      if (this.checkForm()) {
+        this.nowSubmitPost();
+      }
+    },
+    nowSubmitPost() {
       fetch(this.newPostEndPoint, {
         method: "POST",
         body: JSON.stringify(this.post),
@@ -96,7 +128,12 @@ export default {
         posttext: "",
         imagelink: "None"
       },
-      images: []
+      images: [],
+      formerrors: {
+        title: null,
+        author: null,
+        posttext: null
+      }
     };
   },
   created() {
@@ -131,5 +168,8 @@ export default {
   border: 3px solid rgba(0, 0, 0, 0.7);
   border-radius: 2px;
   width: auto;
+}
+b {
+  color: darkred;
 }
 </style>

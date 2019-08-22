@@ -21,18 +21,22 @@
       <div class="form-group">
         <label>Title:</label>
         <input v-model="post.title" type="text" class="form-control" />
+        <b v-if="this.formerrors.title">{{this.formerrors.title}}</b>
       </div>
       <div class="form-group">
         <label>Author:</label>
         <input v-model="post.author" type="text" class="form-control" />
+        <b v-if="this.formerrors.author">{{this.formerrors.author}}</b>
       </div>
       <div class="form-group">
         <label>Category:</label>
         <input v-model="post.category" type="text" class="form-control" />
+        <b v-if="this.formerrors.category">{{this.formerrors.category}}</b>
       </div>
       <div class="form-group">
         <label>Post text:</label>
         <textarea v-model="post.posttext" type="text" class="form-control" />
+        <b v-if="this.formerrors.posttext">{{this.formerrors.posttext}}</b>
       </div>
       <button type="submit" class="btn btn-primary">Submit Post</button>
     </form>
@@ -66,6 +70,38 @@ export default {
   },
   methods: {
     editPostById() {
+      if (this.checkForm()) {
+        this.nowEditPostById();
+      }
+    },
+    checkForm() {
+      if (
+        this.post.title.length > 0 &&
+        this.post.author.length > 0 &&
+        this.post.category.length > 0 &&
+        this.post.posttext.length > 0
+      ) {
+        return true;
+      }
+      this.formerrors.title = null;
+      this.formerrors.author = null;
+      this.formerrors.category = null;
+      this.formerrors.posttext = null;
+      if (this.post.title.length === 0) {
+        this.formerrors.title = "Title can't be empty";
+      }
+      if (this.post.author.length === 0) {
+        this.formerrors.author = "Author can't be empty";
+      }
+      if (this.post.category.length === 0) {
+        this.formerrors.category = "Category can't be empty";
+      }
+      if (this.post.posttext.length === 0) {
+        this.formerrors.posttext = "Post text can't be empty";
+      }
+      return false;
+    },
+    nowEditPostById() {
       fetch(this.editPostByIdEndpoint, {
         method: "PATCH",
         body: JSON.stringify(this.post),
@@ -132,7 +168,13 @@ export default {
         posttext: "",
         imagelink: "None"
       },
-      images: []
+      images: [],
+      formerrors: {
+        title: null,
+        author: null,
+        category: null,
+        posttext: null
+      }
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -157,5 +199,8 @@ img {
   width: auto;
   border-radius: 2px;
   border: 3px solid rgba(0, 0, 0, 0.7);
+}
+b {
+  color: indianred;
 }
 </style>
