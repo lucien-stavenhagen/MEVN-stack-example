@@ -10,7 +10,7 @@
             <cite>- {{quote.auth}}</cite>
           </small>
         </h5>
-        <hr />
+        <hr class="m-4" />
       </div>
     </div>
     <article class="border bg-light border-primary rounded p-2">
