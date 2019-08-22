@@ -6,7 +6,7 @@
         <h5>login</h5>
       </router-link>
     </div>
-    <form @submit.prevent="doNewUser">
+    <form @submit.prevent="doNewUser" novalidate="true">
       <div class="form-group">
         <label for="exampleInputEmail1">Username ({{minlength}} or more characters):</label>
         <input

@@ -6,7 +6,7 @@
         <h5>Don't have an account?</h5>
       </router-link>
     </div>
-    <form class="dologin" @submit.prevent="dologin">
+    <form class="dologin" @submit.prevent="dologin" novalidate="true">
       <div class="form-group">
         <label for="exampleInputEmail1">Username:</label>
         <input

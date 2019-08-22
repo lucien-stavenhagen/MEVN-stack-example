@@ -9,7 +9,7 @@
         <h5 class="text-center">Home</h5>
       </router-link>
     </div>
-    <form v-on:submit.prevent="submitPost">
+    <form v-on:submit.prevent="submitPost" novalidate="true">
       <div class="form-group">
         <label for="exampleFormControlSelect2">Would you like an image?</label>
         <select class="form-control" id="exampleFormControlSelect2" v-on:change="setImage">

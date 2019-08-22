@@ -3,7 +3,7 @@
     <div class="jumbotron text-center border border-primary mb-1">
       <h1>Edit Post</h1>
     </div>
-    <form v-on:submit.prevent="editPostById">
+    <form v-on:submit.prevent="editPostById" novalidate="true">
       <div class="form-group">
         <div class="form-group">
           <label for="exampleFormControlSelect2">Change image</label>
