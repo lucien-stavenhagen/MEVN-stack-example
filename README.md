@@ -40,4 +40,5 @@ npm run serve
 in another terminal:
 cd ./express_backend
 npm run dev
+go to http://localhost:8080
 ```
