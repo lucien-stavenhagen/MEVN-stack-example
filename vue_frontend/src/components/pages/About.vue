@@ -13,7 +13,7 @@
         <hr class="m-4" />
       </div>
     </div>
-    <article class="border bg-light border-primary rounded p-2 clearfix mb-1">
+    <article class="border bg-light border-primary rounded p-3 clearfix mb-1">
       <h2>About me:</h2>
       <p>It all started in 1963, at a small hospital in what was then the small town of Walnut Creek, CA. It all finally ended right here. In this app, on the page you're reading now. To the best of my knowledge, anyway.</p>
       <hr/>
