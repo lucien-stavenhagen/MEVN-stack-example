@@ -19,7 +19,8 @@ Other packages I've used with this:
 And by default, I know a little bit of webpack now also.
 
 Recent additions:
-    file uploading iplemented for some routes in the backend, using the multer package.
-    basic image handling, with a basic image gallery with basic CRD (no U) functionality
-    form validation added in the login, new user, new post and edit post HTML forms. Based on a cookbook example from vuejs.org.
-    a new About page.
+```
+file uploading iplemented for some routes in the backend, using the multer package.
+basic image handling, with a basic image gallery with basic CRD (no U) functionality
+form validation added in the login, new user, new post and edit post HTML forms. Based on a cookbook example from vuejs.org.
+a new About page.
