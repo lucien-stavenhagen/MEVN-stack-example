@@ -24,3 +24,20 @@ file uploading iplemented for some routes in the backend, using the multer packa
 basic image handling, with a basic image gallery with basic CRD (no U) functionality
 form validation added in the login, new user, new post and edit post HTML forms. Based on a cookbook example from vuejs.org.
 a new About page.
+```
+# Setup:
+```
+cd ./vue_frontend
+npm install
+cd ../express_backend
+npm install
+```
+# Run in dev mode:
+```
+in one terminal:
+cd ./vue_frontend
+npm run serve
+in another terminal:
+cd ./express_backend
+npm run dev
+```
