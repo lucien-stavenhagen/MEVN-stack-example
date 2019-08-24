@@ -5,17 +5,17 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "client": "npm start --prefix ./react-client",
+    "client": "npm run serve --prefix ../vue_frontend",
     "both": "concurrently \"npm run dev\" \"npm run client\""
   },
   "author": "LS",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^4.1.2",
     "nodemon": "^1.19.1"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
-    "concurrently": "^4.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
