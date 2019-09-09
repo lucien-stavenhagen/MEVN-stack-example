@@ -54,4 +54,17 @@ app.use("/api/users", require("./routes/users"));
 // grab images API router
 app.use("/api/images", require("./routes/images"));
 
+//
+// https://www.youtube.com/watch?v=71wSzpLyW9k
+// serve static assets if in production
+
+if (process.env.NODE_ENV === "production") {
+  //set static folder
+  app.use(express.static("vue_frontend/dist"));
+  app.get("*", (request, response) => {
+    response.sendFile(
+      path.resolve(__dirname, "vue_frontend", "dist", "index.html")
+    );
+  });
+}
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

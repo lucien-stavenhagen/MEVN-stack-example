@@ -7,10 +7,11 @@
   "description": "small REST API for posts",
   "main": "index.js",
   "scripts": {
-    "prod": "node index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js",
-    "client": "npm run serve --prefix ../vue_frontend",
-    "both": "concurrently \"npm run dev\" \"npm run client\""
+    "client": "npm run serve --prefix ./vue_frontend",
+    "both": "concurrently \"npm run dev\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ./vue_frontend && npm run build --prefix ./vue_frontend"
   },
   "author": "LS",
   "license": "ISC",
