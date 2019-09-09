@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+const compression = require("compression");
 
 const uploadsdir = require("./utils/utils").uploadsdir;
 
-const PORT = process.env.PORT || 4000;
-const HOST = process.env.HOST;
+const PORT = process.env.PORT || 4001;
 
 //
 // create our uploads dir
@@ -35,6 +35,10 @@ mongoose.connect(
     useNewUrlParser: true
   }
 );
+//compress requests and
+//responses
+app.use(compression());
+
 //middleware for parsing json
 app.use(express.json());
 
@@ -57,4 +61,4 @@ app.use("/api/users", require("./routes/users"));
 // grab images API router
 app.use("/api/images", require("./routes/images"));
 
-app.listen(PORT, HOST, () => console.log(`listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
