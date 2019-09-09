@@ -23,18 +23,11 @@ const password = "dalemace";
 const dbname = "expresstest";
 
 // connect to mongodb out on atlas
-mongoose.connect(
-  "mongodb+srv://" +
-    username +
-    ":" +
-    password +
-    "@cluster0-g06zf.mongodb.net/" +
-    dbname +
-    "?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true
-  }
-);
+const atlas = `mongodb+srv://${username}:${password}@cluster0-g06zf.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+
+mongoose.connect(process.env.MONGODB_URI || atlas, {
+  useNewUrlParser: true
+});
 //compress requests and
 //responses
 app.use(compression());

@@ -1,6 +1,9 @@
 {
   "name": "express-posts",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.16.0"
+  },
   "description": "small REST API for posts",
   "main": "index.js",
   "scripts": {
