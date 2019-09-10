@@ -44,7 +44,7 @@ go to http://localhost:8080
 ```
 # Deploy on Heroku directly from the branch
 ```
-This is a little hackish, flying under the radar of Git a little bit. Research on a better way to do this is underway:
+Research on a better way to do this is underway:
 
 Clone the branch and detach the working copy from git completely: 
 
