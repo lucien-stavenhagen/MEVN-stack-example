@@ -68,6 +68,10 @@ heroku config:set VUE_APP_HOST_NAME="https://fathomless-waters-52323.herokuapp.c
 heroku config:set PRIVATE_KEY="abc-123+"
 heroku config:set NODE_ENV="production"
 
+We need the heroku/nodejs buildpack installed in the app:
+
+heroku buildpacks:add heroku/nodejs
+
 Set the local repo remote to point to the repo up in heroku:
 
 heroku git:remote -a fathomless-waters-52323
