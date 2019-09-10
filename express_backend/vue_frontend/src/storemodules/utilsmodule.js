@@ -1,5 +1,5 @@
 const state = {
-  proxy: process.env.HOST_NAME || "http://localhost:4001",
+  proxy: process.env.VUE_APP_HOST_NAME || "http://localhost:4001",
   tokenname: "accesstoken"
 };
 
