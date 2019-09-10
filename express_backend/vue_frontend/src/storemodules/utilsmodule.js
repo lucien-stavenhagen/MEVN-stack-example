@@ -1,5 +1,5 @@
 const state = {
-  proxy: "http://localhost:4001",
+  proxy: process.env.HOST_NAME || "http://localhost:4001",
   tokenname: "accesstoken"
 };
 

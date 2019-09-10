@@ -2,7 +2,7 @@
   "env": {
     "CROSS_ORIGIN": "true",
     "PORT": 4001,
-    "HOST": "localhost",
+    "HOST": "http://localhost",
     "PRIVATE_KEY": "abc-123+"
   }
 }
