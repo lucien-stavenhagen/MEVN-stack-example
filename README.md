@@ -71,7 +71,7 @@ heroku config:set NODE_ENV="production"
 Set the local repo remote to point to the repo up in heroku:
 
 heroku git:remote -a fathomless-waters-52323
-git push heroku remote
+git push heroku master
 
 and that should, repeat should, work.
 ```
