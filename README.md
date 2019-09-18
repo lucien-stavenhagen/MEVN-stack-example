@@ -27,19 +27,16 @@ a new About page.
 ```
 # Setup:
 ```
+cd ./express_backend
+npm install
 cd ./vue_frontend
 npm install
-cd ../express_backend
-npm install
+
 ```
 # Run in dev mode:
 ```
-in one terminal:
-cd ./vue_frontend
-npm run serve
-in another terminal:
 cd ./express_backend
-npm run dev
+npm run both
 go to http://localhost:8080
 ```
 # Deploy on Heroku directly from the branch
@@ -52,7 +49,7 @@ git clone --branch deploy https://github.com/lucien-stavenhagen/MEVN-stack-examp
 cd MEVN-stack-example
 rm -rf ./.git 
 
-this detaches the working copy from git completely
+this detaches the working copy from git
 
 Now reinit as a brand new local repo
 
