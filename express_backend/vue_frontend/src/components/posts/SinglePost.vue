@@ -29,7 +29,8 @@
         <editor
           :api-key="this.getTinyConfig.api_key"
           v-bind:initial-value="post.posttext"
-          :init="this.getTinyConfig"
+          :init="{height: 800}"
+          :disabled="true"
         ></editor>
       </div>
     </div>
