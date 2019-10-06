@@ -2,9 +2,7 @@
   <div class="container">
     <div v-if="images.length > 0" class="gallery">
       <div v-bind:key="image.id" v-for="image in images">
-        <div class="img-container">
-          <img v-bind:src="image.path" />
-        </div>
+        <img class="img-thumbnail" v-bind:src="image.path" />
         <button
           v-if="$store.getters.isLoggedIn"
           class="btn btn-outline-danger btn-sm"
@@ -30,32 +28,23 @@ export default {
 <style scoped>
 .gallery {
   display: grid;
-  grid-gap: 3px;
   justify-content: space-around;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-.img-container {
-  border-radius: 2px;
-  border: 3px solid rgba(0, 0, 0, 0.7);
-}
 
-.gallery img {
-  max-width: 100%;
-  width: auto;
-}
-@media screen and (max-width:1200px){
-  .gallery{
-    grid-template-columns: 1fr 1fr 1fr
+@media screen and (max-width: 1200px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
-@media screen and (max-width:768px){
-  .gallery{
-    grid-template-columns: 1fr 1fr
+@media screen and (max-width: 768px) {
+  .gallery {
+    grid-template-columns: 1fr 1fr;
   }
 }
-@media screen and (max-width:576px){
-  .gallery{
-    grid-template-columns: 1fr
+@media screen and (max-width: 576px) {
+  .gallery {
+    grid-template-columns: 1fr;
   }
 }
 </style>

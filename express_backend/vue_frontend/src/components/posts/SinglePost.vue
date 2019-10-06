@@ -4,7 +4,7 @@
       <h1>Single Post View</h1>
       <p class="text-muted">(Click on post title to return to post index)</p>
     </div>
-    <div class="card bg-light text-dark">
+    <div v-bind:key="this.force_rerender_me" class="card bg-light text-dark">
       <div class="card-body">
         <router-link to="/posts">
           <h2 class="card-title">{{post.title}}</h2>
@@ -71,6 +71,7 @@ export default {
         .then(res => res.json())
         .then(doc => {
           this.post = { ...doc };
+          this.force_rerender_me++;
         })
         .catch(err => {
           this.post = {
@@ -89,7 +90,8 @@ export default {
   },
   data() {
     return {
-      post: {}
+      post: {},
+      force_rerender_me: 0
     };
   }
 };

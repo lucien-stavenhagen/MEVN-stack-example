@@ -60,12 +60,4 @@ export default {
 </script>
 
 <style scoped>
-.post-image {
-  max-width: 60%;
-  width: auto;
-  margin-right: 5px;
-  border-radius: 5px;
-  border: 3px solid rgba(0, 0, 0, 0.7);
-  float: left;
-}
 </style>
