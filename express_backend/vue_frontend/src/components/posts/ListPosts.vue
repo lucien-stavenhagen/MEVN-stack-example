@@ -6,7 +6,7 @@
       <h5>Here you will find the blog of Wile E. Coder...</h5>
     </div>
     <div class="row" v-if="posts.length > 0">
-      <div class="col-6" v-bind:key="post._id" v-for="post in visiblePosts">
+      <div class="col-12 col-md-6" v-bind:key="post._id" v-for="post in visiblePosts">
         <PostView v-bind:post="post"></PostView>
       </div>
     </div>
