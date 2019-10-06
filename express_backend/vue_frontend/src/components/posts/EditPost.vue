@@ -5,20 +5,6 @@
     </div>
     <form v-on:submit.prevent="editPostById" novalidate="true">
       <div class="form-group">
-        <div class="form-group">
-          <label for="exampleFormControlSelect2">Change image</label>
-          <select class="form-control" id="exampleFormControlSelect2" v-on:change="setImage">
-            <option selected value="None">None</option>
-            <option
-              v-bind:key="image.id"
-              v-for="image in images"
-              v-bind:value="image.path"
-            >{{image.name}}</option>
-          </select>
-          <img v-if="post.imagelink !== 'None'" v-bind:src="post.imagelink" class="thumbnail-img" />
-        </div>
-      </div>
-      <div class="form-group">
         <label>Title:</label>
         <input v-model="post.title" type="text" class="form-control" />
         <b v-if="this.formerrors.title">{{this.formerrors.title}}</b>
@@ -35,7 +21,11 @@
       </div>
       <div class="form-group">
         <label>Post text:</label>
-        <textarea v-model="post.posttext" type="text" class="form-control" />
+        <editor
+          :api-key="this.getTinyConfig.api_key"
+          v-model="post.posttext"
+          :init="this.getTinyConfig"
+        ></editor>
         <b v-if="this.formerrors.posttext">{{this.formerrors.posttext}}</b>
       </div>
       <button type="submit" class="btn btn-primary">Submit Post</button>
@@ -43,17 +33,22 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import Editor from "@tinymce/tinymce-vue";
 
 export default {
   name: "EditPost",
+  components: {
+    editor: Editor
+  },
   props: ["id"],
   computed: {
     ...mapGetters([
       "getProxy",
       "getPostsProxyStubs",
       "getCredentials",
-      "getImagesProxyRoute"
+      "getImagesProxyRoute",
+      "getTinyConfig"
     ]),
     getPostByIdEndpoint() {
       return `${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`;
@@ -69,6 +64,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["dispatchTinyImageMenu"]),
     editPostById() {
       if (this.checkForm()) {
         this.nowEditPostById();
@@ -156,6 +152,7 @@ export default {
       .then(res => res.json())
       .then(images => {
         this.images = [...this.images, ...images.images];
+        this.dispatchTinyImageMenu(images.images);
       })
       .catch(err => console.log(err));
   },

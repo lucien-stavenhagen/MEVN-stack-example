@@ -26,10 +26,12 @@
           </span>
         </p>
         <hr />
-        <p class="font-weight-light">
-          <img v-if="post.imagelink !== 'None'" v-bind:src="post.imagelink" class="post-image" />
-          {{post.posttext}}
-        </p>
+        <editor
+          :api-key="this.getTinyConfig.api_key"
+          v-bind:initial-value="post.posttext"
+          :init="{height: 800}"
+          :disabled="true"
+        ></editor>
       </div>
     </div>
     <button v-on:click="gotoEditPost" class="btn btn-primary">Edit</button>
@@ -39,12 +41,15 @@
 
 <script>
 import { mapGetters } from "vuex";
-
+import Editor from "@tinymce/tinymce-vue";
 export default {
   name: "SinglePost",
+  components: {
+    editor: Editor
+  },
   props: ["id"],
   computed: {
-    ...mapGetters(["getProxy", "getPostsProxyStubs"]),
+    ...mapGetters(["getProxy", "getPostsProxyStubs", "getTinyConfig"]),
     postByIdEndpoint() {
       return `${this.getProxy}${this.getPostsProxyStubs.getpostsroute}/${this.id}`;
     }

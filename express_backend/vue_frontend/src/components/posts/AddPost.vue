@@ -11,18 +11,6 @@
     </div>
     <form v-on:submit.prevent="submitPost" novalidate="true">
       <div class="form-group">
-        <label for="exampleFormControlSelect2">Would you like an image?</label>
-        <select class="form-control" id="exampleFormControlSelect2" v-on:change="setImage">
-          <option selected value="None">None</option>
-          <option
-            v-bind:key="image.id"
-            v-for="image in images"
-            v-bind:value="image.path"
-          >{{image.name}}</option>
-        </select>
-        <img v-if="post.imagelink !== 'None'" v-bind:src="post.imagelink" class="thumbnail-img" />
-      </div>
-      <div class="form-group">
         <label>Title:</label>
         <input v-model="post.title" type="text" class="form-control" />
         <b v-if="this.formerrors.title">{{this.formerrors.title}}</b>
@@ -38,7 +26,11 @@
       </div>
       <div class="form-group">
         <label>Post text:</label>
-        <textarea v-model="post.posttext" type="text" class="form-control" />
+        <editor
+          :api-key="this.getTinyConfig.api_key"
+          v-model="post.posttext"
+          :init="this.getTinyConfig"
+        ></editor>
         <b v-if="this.formerrors.posttext">{{this.formerrors.posttext}}</b>
       </div>
       <button type="submit" class="btn btn-primary">Submit Post</button>
@@ -47,16 +39,22 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+// es modules
+import Editor from "@tinymce/tinymce-vue";
 
 export default {
   name: "AddPost",
+  components: {
+    editor: Editor
+  },
   computed: {
     ...mapGetters([
       "getCredentials",
       "getProxy",
       "getPostsProxyStubs",
-      "getImagesProxyRoute"
+      "getImagesProxyRoute",
+      "getTinyConfig"
     ]),
     newPostEndPoint() {
       return `${this.getProxy}${this.getPostsProxyStubs.newpostroute}`;
@@ -69,6 +67,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["dispatchTinyImageMenu"]),
     checkForm() {
       if (
         this.post.title.length > 0 &&
@@ -136,6 +135,7 @@ export default {
       }
     };
   },
+
   created() {
     fetch(this.getImagesEndPoint, {
       method: "GET",
@@ -146,6 +146,7 @@ export default {
       .then(res => res.json())
       .then(images => {
         this.images = [...this.images, ...images.images];
+        this.dispatchTinyImageMenu(images.images);
       })
       .catch(err => console.log(err));
   },

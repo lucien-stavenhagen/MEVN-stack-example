@@ -27,18 +27,29 @@
           </span>
         </p>
         <hr />
-        <p class="card-text font-weight-light">
-          <img v-if="post.imagelink !== 'None'" v-bind:src="post.imagelink" class="post-image" />
-          {{post.posttext}}
-        </p>
+        <editor
+          :api-key="this.getTinyConfig.api_key"
+          v-bind:initial-value="post.posttext"
+          :init="{height: 400}"
+          :disabled="true"
+        ></editor>
       </small>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import Editor from "@tinymce/tinymce-vue";
+
 export default {
   name: "PostView",
+  components: {
+    editor: Editor
+  },
+  computed: {
+    ...mapGetters(["getTinyConfig"])
+  },
   props: ["post"],
   methods: {
     viewSingle(id) {

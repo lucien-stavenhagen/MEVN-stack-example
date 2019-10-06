@@ -5,8 +5,8 @@
       <hr />
       <h5>Here you will find the blog of Wile E. Coder...</h5>
     </div>
-    <div v-if="posts.length > 0">
-      <div v-bind:key="post._id" v-for="post in posts">
+    <div class="row" v-if="posts.length > 0">
+      <div class="col-6" v-bind:key="post._id" v-for="post in visiblePosts">
         <PostView v-bind:post="post"></PostView>
       </div>
     </div>
@@ -14,6 +14,24 @@
       <div class="card-body text-center">
         <p class="card-title">No posts found on server.</p>
       </div>
+    </div>
+    <div class="d-flex flex-sm-row flex-column justify-content-between align-items-center mb-2">
+      <button
+        v-if="currentPage > 0"
+        v-on:click="updatePage(currentPage-1)"
+        class="font-weight-lighter btn btn-outline-secondary"
+      >&lt;&lt;- Prev</button>
+      <button v-else class="invisible" disabled></button>
+      <span class="font-weight-lighter align-middle">
+        Page {{currentPage+1}}
+        <span class="text-muted">of {{Math.ceil(posts.length/pageSize)}}</span>
+      </span>
+      <button
+        v-if="(pageSize < posts.length) && (((currentPage+1) * pageSize) < posts.length)"
+        v-on:click="updatePage(currentPage+1)"
+        class="font-weight-lighter btn btn-outline-secondary"
+      >Next-&gt;&gt;</button>
+      <button v-else class="invisible" disabled></button>
     </div>
   </div>
 </template>
@@ -42,6 +60,7 @@ export default {
         .then(res => res.json())
         .then(doc => {
           this.posts = [...doc];
+          this.updateVisiblePosts();
         })
         .catch(err => {
           this.posts = [
@@ -55,6 +74,20 @@ export default {
             }
           ];
         });
+    },
+    updatePage(pageNumber) {
+      this.currentPage = 0 < pageNumber ? pageNumber : 0;
+      this.updateVisiblePosts();
+    },
+    updateVisiblePosts() {
+      this.visiblePosts = this.posts.slice(
+        this.currentPage * this.pageSize,
+        this.currentPage * this.pageSize + this.pageSize
+      );
+      // no visible posts
+      if (this.visiblePosts.length === 0 && this.currentPage > 0) {
+        this.updatePage(this.currentPage - 1);
+      }
     }
   },
   created() {
@@ -62,7 +95,10 @@ export default {
   },
   data() {
     return {
-      posts: []
+      posts: [],
+      currentPage: 0,
+      pageSize: 2,
+      visiblePosts: []
     };
   }
 };
