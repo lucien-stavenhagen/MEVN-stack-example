@@ -4,7 +4,8 @@ pipeline {
             image 'node:10.16.3-jessie' 
             args '-p 3000:3000' 
         }
-    } environment {
+    } 
+    environment {
         CI = 'true'
     }
     stages {
