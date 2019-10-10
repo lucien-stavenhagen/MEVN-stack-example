@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'cd ./express_backend && npm install && cd ./vue_frontend && npm install && cd .. && npm run both' 
+                sh 'cd ./express_backend && npm install && cd ./vue_frontend && npm install' 
             }
         }
     }
