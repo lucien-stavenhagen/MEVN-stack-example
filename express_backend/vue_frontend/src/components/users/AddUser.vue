@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center border border-primary">
       <h2>New User Account Page</h2>
       <router-link to="/login">
         <h5>login</h5>

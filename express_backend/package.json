@@ -10,6 +10,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "client": "npm run serve --prefix ./vue_frontend",
+    "clean": "cd ./vue_frontend && rm -rf ./node_modules && cd .. && rm -rf ./node_modules",
+    "installmods": "npm install && cd ./vue_frontend && npm install && cd ..",
     "both": "concurrently \"npm run dev\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ./vue_frontend && npm run build --prefix ./vue_frontend"
   },
