@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="jumbotron text-center border border-primary p-5 mb-1">
-      <h1>About Wile E. Coder...</h1>
+      <h1>About Lucien Stavenhagen...</h1>
       <hr class="m-4" />
       <div v-bind:key="quote.id" v-for="quote in quotes">
         <h5 class="font-weight-light">

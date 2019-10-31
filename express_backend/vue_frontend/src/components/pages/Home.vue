@@ -1,33 +1,40 @@
 <template>
   <div class="container">
     <div class="jumbotron text-center border border-primary clearfix">
-      <h1>Home Page Of Wile E. Coder</h1>
+      <h1>Home Page Of Lucien Stavenhagen</h1>
       <hr />
       <img class="main-img" src="../../assets/wilee.jpg" />
       <p
         class="main-text"
-      >This would be the homepage of Wile E. Coder, in a very basic web app example. It features full CRUD capability and is a full-stack app written with the MEVN stack (Mongodb, Express Vue.js and Node.js).</p>
+      >This is the homepage of Lucien Stavenhagen, in a very basic blog web app example. It features full CRUD capability and is a full-stack app written with the MEVN stack (Mongodb, Express Vue.js and Node.js).</p>
+      <p class="p-header">Features:</p>
       <p class="main-text">
-        Perhaps it'd be good to start off in a non-technical way, and dwell for a moment on something else. So, here are some great quotes to help us get into a good frame of mind:
-        <br />
-        <q>Beavis, it's not even normal to ask.</q>
-        <cite>- Mike Judge</cite>
-        <br />
-        <q>I've never killed an innocent man.</q>
-        <cite>
-          - Mark Brandon
-          <q>Chopper</q> Read
-          <small>(may he R.I.P.)</small>
-        </cite>
-        <br />
-        <q>Those cubicles look like they fell out of the top of the ugly tree and hit every branch on the way down.</q>
-        <cite>
-          - Eddie M. from Metrowerks, commenting on the
-          <q>industrial</q> cubicle design
-        </cite>
-        <br />
-        <q>You buy em books, you send em to school, and they eat the teacher.</q>
-        <cite>- Jesse, from 2J's hamburgers</cite>
+        On the back end:
+        <ul>
+        <li>Node.js</li>
+        <li>Express</li>
+        <li>MongoDB (Atlas)</li>
+        </ul>
+        And on the front end:
+        <ul>
+        <li>Vue.js</li>
+        <li>Bootstrap 4</li>
+        </ul>
+        It’s a full-stack app using an MVC design pattern, with the front end and back end communicating via a REST API. The Mongo database is hosted out in the cloud using Atlas. A further list of features includes:
+        <ul>
+        <li>JWT web token authentication for selected backend routes.</li>
+        <li>password encryption.</li>
+       <li>TinyMCE WYSIWYG HTML editor.</li>
+        <li>Vuex for centralized state management.</li>
+        <li>Vue router used for general navigation and guarding selected routes against unauthorized access.</li>
+        <li>login information persistence with browser localstorage.</li>
+        <li>full CRUD functionality for posts.</li>
+        <li>full CRD (no U) functionality in the image gallery.</li>
+        <li>form validation.</li>
+        <li>Image gallery with two switchable views: a grid view and a carousel view.</li>
+        <li>hand-coded pagination.</li>
+        <li>Bootstrap 4.</li>
+        </ul>
       </p>
     </div>
   </div>
@@ -52,6 +59,13 @@ export default {
 .main-text,
 .main-quotes {
   text-align: left;
+}
+.main-text ul{
+  list-style-type: circle;
+  list-style-position: inside;
+}
+.p-header{
+  font-size: 1.2rem;
 }
 @media screen and (max-width: 576px) {
   .main-img {
